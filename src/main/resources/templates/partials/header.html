@@ -1,0 +1,21 @@
+<div th:fragment="header">
+    <header style="background-color: #4CAF50; padding: 20px; color: white; text-align: center;">
+        <h1 th:text="${pageTitle}">Welcome to the School Diary</h1>
+        <nav>
+            <ul style="list-style-type: none; padding: 0;">
+                <li style="display: inline; margin-right: 15px;">
+                    <a href="/" style="color: white; text-decoration: none;">Home</a>
+                </li>
+                <li style="display: inline; margin-right: 15px;">
+                    <a href="/diary" style="color: white; text-decoration: none;">Diary Entries</a>
+                </li>
+                <li style="display: inline; margin-right: 15px;">
+                    <a href="/users" style="color: white; text-decoration: none;">Users</a>
+                </li>
+                <li style="display: inline; margin-right: 15px;">
+                    <a href="/subjects" style="color: white; text-decoration: none;">Subjects</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>

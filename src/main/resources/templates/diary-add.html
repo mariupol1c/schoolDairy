@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Diary Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .alert {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .alert-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .alert-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .btn-success:hover {
+            background-color: #45a049;
+        }
+        .btn-primary {
+            background-color: #007BFF;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color: #e53935;
+        }
+
+        form {
+            text-align: left;
+            width: 60%;
+            margin: 0 auto;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="partials/header :: header"></div>
+
+<div th:if="${param.success}" class="alert alert-success">
+    <p th:text="${param.success}"></p>
+</div>
+
+<div th:if="${param.error}" class="alert alert-danger">
+    <p th:text="${param.error}"></p>
+</div>
+
+<main>
+
+    <h1>Add Diary Entry</h1>
+
+    <form th:action="@{/diary/add}" method="post">
+        <div>
+            <label for="userId">Select User</label>
+            <select name="userId" id="userId" required>
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="subjectId">Select Subject</label>
+            <select name="subjectId" id="subjectId" required>
+                <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="comment">Comment</label>
+            <textarea name="comment" id="comment" rows="4"></textarea>
+        </div>
+
+        <div>
+            <label for="grade">Grade (1-5)</label>
+            <input type="number" name="grade" id="grade" min="1" max="5"/>
+        </div>
+
+        <div>
+            <label for="diaryEntryType">Entry Type</label>
+            <select name="diaryEntryType" id="diaryEntryType" required>
+                <option th:each="type : ${entryTypes}" th:value="${type}" th:text="${type}"></option>
+            </select>
+        </div>
+
+        <div>
+            <label for="date">Date</label>
+            <input type="date" name="date" id="date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" required />
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success">Save Entry</button>
+            <a th:href="@{/diary}" class="btn btn-primary">Cancel</a>
+        </div>
+    </form>
+
+</main>
+
+<div th:replace="partials/footer :: footer"></div>
+
+</body>
+</html>
