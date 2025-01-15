@@ -11,5 +11,15 @@ public class PageController {
         model.addAttribute("pageTitle", "Welcome to the School Diary");
         return "index";
     }
+    @GetMapping("/index")
+    public String indexPage(Model model) {
+        model.addAttribute("pageTitle", "Welcome to the School Diary");
+        return "index";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 }
 

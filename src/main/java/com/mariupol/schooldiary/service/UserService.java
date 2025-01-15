@@ -2,6 +2,7 @@ package com.mariupol.schooldiary.service;
 
 import com.mariupol.schooldiary.datarepository.UserRepository;
 import com.mariupol.schooldiary.model.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,15 +12,19 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void createUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already exists.");
         }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -37,6 +42,7 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
         User user = existingUser.get();
+        //user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         user.setEmail(updatedUser.getEmail());
         user.setName(updatedUser.getName());
         user.setRole(updatedUser.getRole());

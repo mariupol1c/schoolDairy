@@ -2,6 +2,7 @@ package com.mariupol.schooldiary.controller;
 
 import com.mariupol.schooldiary.model.User;
 import com.mariupol.schooldiary.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

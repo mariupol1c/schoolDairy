@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,37 +123,37 @@
     <h1 th:text="${pageTitle}">Diary Entries</h1>
 
     <div class="btn-container">
-        <a th:href="@{/diary/add}" class="btn btn-success">Add New Entry</a>
+        <a th:href="@{/diary/add}" class="btn btn-success"
+           sec:authorize="hasAnyRole('ADMIN', 'TEACHER', 'PARENT')">Add New Entry</a>
     </div>
 
     <div class="table-container">
         <table>
             <thead>
             <tr>
-                <th>ID</th>
                 <th>User</th>
                 <th>Subject</th>
                 <th>Comment</th>
                 <th>Grade</th>
                 <th>Entry Type</th>
                 <th>Date</th>
-                <th>Actions</th>
+                <th sec:authorize="hasAnyRole('ADMIN', 'TEACHER', 'PARENT')">Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="entry : ${diaryEntries}">
-                <td th:text="${entry.id}"></td>
                 <td th:text="${entry.user.name}"></td>
                 <td th:text="${entry.subject.name}"></td>
                 <td th:text="${entry.comment}"></td>
                 <td th:text="${entry.grade}"></td>
                 <td th:text="${entry.diaryEntryType}"></td>
                 <td th:text="${entry.date}"></td>
-                <td>
+                <td sec:authorize="hasAnyRole('ADMIN', 'TEACHER', 'PARENT')">
                     <a th:href="@{'/diary/edit/' + ${entry.id}}" class="btn btn-primary">Edit</a>
                     <a th:href="@{'/diary/delete/' + ${entry.id}}"
                        onclick="return confirm('Are you sure you want to delete this entry?');"
-                       class="btn btn-danger">Delete</a>
+                       class="btn btn-danger"
+                       sec:authorize="hasAnyRole('ADMIN', 'TEACHER')">Delete</a>
                 </td>
             </tr>
             </tbody>

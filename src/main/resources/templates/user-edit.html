@@ -82,7 +82,8 @@
         </div>
         <div>
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" th:field="*{password}">
+            <input type="password" id="password" name="password" th:value="${user.password}"/>
+
         </div>
         <div>
             <label for="role">Role:</label>
