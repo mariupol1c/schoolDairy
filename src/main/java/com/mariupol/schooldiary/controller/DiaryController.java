@@ -36,7 +36,7 @@ public class DiaryController {
 
     @GetMapping
     public String getDiary(Model model) {
-        model.addAttribute("diaryEntries", diaryService.getAllDiaryEntries());
+        model.addAttribute("diaryEntries", diaryService.getEntriesForCurrentUser());
         return "diary";
     }
 

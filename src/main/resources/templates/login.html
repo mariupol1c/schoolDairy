@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Diary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        form {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            padding: 0 20px; /* Добавлены отступы внутри формы слева и справа */
+        }
+        input {
+            width: 100%; /* Поля занимают всю ширину контейнера */
+            padding: 10px; /* Внутренние отступы для всех сторон */
+            margin-bottom: 15px; /* Отступ между полями */
+            border: 1px solid #ccc; /* Граница */
+            border-radius: 4px; /* Скругление углов */
+            font-size: 16px;
+            box-sizing: border-box; /* Чтобы padding не увеличивал ширину */
+        }
+        button {
+            width: 100%; /* Кнопка занимает всю ширину контейнера */
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049; /* Темнее при наведении */
+        }
+        footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to the School Diary</h1>
+</header>
+
+<main>
+    <h2>Login Page</h2>
+    <form th:action="@{/login}" method="post">
+        <input type="text" name="username" placeholder="Login">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+    </form>
+
+    <div th:if="${param.error}">
+        <p style="color:red;">Invalid username or password</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p>You have successfully logged out.</p>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 School Diary
+</footer>
+</body>
+</html>

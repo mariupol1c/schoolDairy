@@ -12,6 +12,9 @@
                 <li style="display: inline; margin-right: 15px; vertical-align: middle;" sec:authorize="hasRole('ADMIN')">
                     <a href="/users" style="color: white; text-decoration: none;">Users</a>
                 </li>
+                <li style="display: inline; margin-right: 15px; vertical-align: middle;" sec:authorize="hasRole('ADMIN')">
+                    <a href="/student-relations" style="color: white; text-decoration: none;">Student relations</a>
+                </li>
                 <li style="display: inline; margin-right: 15px; vertical-align: middle;" sec:authorize="hasAnyRole('ADMIN', 'TEACHER')">
                     <a href="/subjects" style="color: white; text-decoration: none;">Subjects</a>
                 </li>

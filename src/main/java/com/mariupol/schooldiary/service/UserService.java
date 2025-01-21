@@ -1,7 +1,10 @@
 package com.mariupol.schooldiary.service;
 
 import com.mariupol.schooldiary.datarepository.UserRepository;
+import com.mariupol.schooldiary.model.Role;
 import com.mariupol.schooldiary.model.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +61,26 @@ public class UserService {
 
     public boolean existsById(int id) {
         return userRepository.existsById(id);
+    }
+
+    public List<User> getAllStudents() {
+
+        return (List<User>) userRepository.findByRoleIn(List.of(Role.STUDENT));
+    }
+
+    public List<User> getAllTeachersAndParents() {
+        return (List<User>) userRepository.findByRoleIn(List.of(Role.TEACHER, Role.PARENT));
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            return userRepository.findByEmail(username)
+                    .map(user -> (User) user)
+                    .orElse(null);
+        }
+        return null;
     }
 }
 
